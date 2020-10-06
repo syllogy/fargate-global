@@ -1,14 +1,14 @@
-# Welcome to your CDK TypeScript project!
+# Fargate Global
 
-This is a blank project for TypeScript development with CDK.
+`fargate-global` is a CDK app that provisions multi-regional AWS Fargate services with [AWS Global Accelerator](https://aws.amazon.com/global-accelerator).
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+## How
 
-## Useful commands
-
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
+```bash
+# to see what's going to be created
+$ cdk diff
+# deploy it
+$ cdk deploy
+# destroy it
+$ cdk destroy
+```
