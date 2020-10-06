@@ -18,7 +18,6 @@ cdk.out/
 cdk.out
 cdk.context.json
 docker-compose.yml
-images
 yarn-error.log
 !/lib
 !/lib/**/*.js

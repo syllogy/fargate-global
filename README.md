@@ -2,6 +2,8 @@
 
 `fargate-global` is a CDK app that provisions multi-regional AWS Fargate services with [AWS Global Accelerator](https://aws.amazon.com/global-accelerator).
 
+![](./images/fargate-global-cdk-overview.png)
+
 ## Deploy
 
 ```bash
