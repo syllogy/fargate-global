@@ -1,6 +1,6 @@
 import * as cdk from '@aws-cdk/core';
 import * as remoteStack from 'cdk-remote-stack';
-import { FargateAlbSvcStack, GlobalAcceleratorProvider, Route53Provider } from './ga-fargate-service-stack';
+import { FargateAlbService, GlobalAcceleratorProvider, Route53Provider } from './ga-fargate-service-stack';
 
 // export class MyStack extends cdk.Stack {
 //   constructor(scope: cdk.Construct, id: string, props: cdk.StackProps = {}) {
@@ -17,7 +17,6 @@ export class Main {
 
     const app = new cdk.App();
 
-
     const envJP = {
       region: 'ap-northeast-1',
       account: process.env.CDK_DEFAULT_ACCOUNT,
@@ -29,9 +28,12 @@ export class Main {
     };
 
     // fargate from JP
-    const fargateJP = new FargateAlbSvcStack(app, 'FargateJP', { env: envJP });
+    const fargateJP = new cdk.Stack(app, 'FargateJPStack', { env: envJP });
+    new FargateAlbService(fargateJP,'FargateJPService')
+
     // fargate from US
-    const fargateUS = new FargateAlbSvcStack(app, 'FargateUS', { env: envUS });
+    const fargateUS = new cdk.Stack(app, 'FargateUSStack', { env: envUS });
+    new FargateAlbService(fargateUS, 'FargateUSService')
 
     // Global Accelerator
     const gaStack = new cdk.Stack(app, 'GAStack', { env: envUS });

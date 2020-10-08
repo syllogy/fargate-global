@@ -3,83 +3,53 @@
 exports[`Snapshot 1`] = `
 Object {
   "Outputs": Object {
-    "DnsName": Object {
+    "FargateJPServiceDnsName63A272FE": Object {
       "Value": Object {
         "Fn::GetAtt": Array [
-          "FargateServiceLBB353E155",
+          "FargateJPServiceFargateServiceLB0A24CAB1",
           "DNSName",
         ],
       },
     },
-    "FargateServiceLoadBalancerDNS9433D5F6": Object {
+    "FargateJPServiceFargateServiceLoadBalancerDNS5689DBB7": Object {
       "Value": Object {
         "Fn::GetAtt": Array [
-          "FargateServiceLBB353E155",
+          "FargateJPServiceFargateServiceLB0A24CAB1",
           "DNSName",
         ],
       },
     },
-    "FargateServiceServiceURL47701F45": Object {
+    "FargateJPServiceFargateServiceServiceURL8D2CF65D": Object {
       "Value": Object {
         "Fn::Join": Array [
           "",
           Array [
             "https://",
             Object {
-              "Ref": "FargateServiceDNS764E1362",
+              "Ref": "FargateJPServiceFargateServiceDNS7D2C0638",
             },
           ],
         ],
       },
     },
-    "LoadBalancerArn": Object {
+    "FargateJPServiceLoadBalancerArn796BC36A": Object {
       "Value": Object {
-        "Ref": "FargateServiceLBB353E155",
+        "Ref": "FargateJPServiceFargateServiceLB0A24CAB1",
       },
     },
   },
   "Resources": Object {
-    "ClusterEB0386A7": Object {
+    "FargateJPServiceCluster93400323": Object {
       "Type": "AWS::ECS::Cluster",
     },
-    "FargateServiceDNS764E1362": Object {
-      "Properties": Object {
-        "AliasTarget": Object {
-          "DNSName": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "dualstack.",
-                Object {
-                  "Fn::GetAtt": Array [
-                    "FargateServiceLBB353E155",
-                    "DNSName",
-                  ],
-                },
-              ],
-            ],
-          },
-          "HostedZoneId": Object {
-            "Fn::GetAtt": Array [
-              "FargateServiceLBB353E155",
-              "CanonicalHostedZoneID",
-            ],
-          },
-        },
-        "HostedZoneId": "Z2N5MJJUEIAVLZ",
-        "Name": "ap-northeast-1.demo.pahud.net.",
-        "Type": "A",
-      },
-      "Type": "AWS::Route53::RecordSet",
-    },
-    "FargateServiceECC8084D": Object {
+    "FargateJPServiceFargateService56005582": Object {
       "DependsOn": Array [
-        "FargateServiceLBPublicListenerECSGroupBE57E081",
-        "FargateServiceLBPublicListener4B4929CA",
+        "FargateJPServiceFargateServiceLBPublicListenerECSGroup20ADAB17",
+        "FargateJPServiceFargateServiceLBPublicListener61C09300",
       ],
       "Properties": Object {
         "Cluster": Object {
-          "Ref": "ClusterEB0386A7",
+          "Ref": "FargateJPServiceCluster93400323",
         },
         "DeploymentConfiguration": Object {
           "MaximumPercent": 200,
@@ -94,7 +64,7 @@ Object {
             "ContainerName": "flask",
             "ContainerPort": 80,
             "TargetGroupArn": Object {
-              "Ref": "FargateServiceLBPublicListenerECSGroupBE57E081",
+              "Ref": "FargateJPServiceFargateServiceLBPublicListenerECSGroup20ADAB17",
             },
           },
         ],
@@ -104,31 +74,61 @@ Object {
             "SecurityGroups": Array [
               Object {
                 "Fn::GetAtt": Array [
-                  "FargateServiceSecurityGroup262B61DD",
+                  "FargateJPServiceFargateServiceSecurityGroup0A0D1CE4",
                   "GroupId",
                 ],
               },
             ],
             "Subnets": Array [
               Object {
-                "Ref": "VPCPrivateSubnet1Subnet8BCA10E0",
+                "Ref": "VpcPrivateSubnet1Subnet536B997A",
               },
               Object {
-                "Ref": "VPCPrivateSubnet2SubnetCFCDAA7A",
+                "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
               },
             ],
           },
         },
         "TaskDefinition": Object {
-          "Ref": "Task79114B6B",
+          "Ref": "FargateJPServiceTask8FB0F9D2",
         },
       },
       "Type": "AWS::ECS::Service",
     },
-    "FargateServiceLBB353E155": Object {
+    "FargateJPServiceFargateServiceDNS7D2C0638": Object {
+      "Properties": Object {
+        "AliasTarget": Object {
+          "DNSName": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "dualstack.",
+                Object {
+                  "Fn::GetAtt": Array [
+                    "FargateJPServiceFargateServiceLB0A24CAB1",
+                    "DNSName",
+                  ],
+                },
+              ],
+            ],
+          },
+          "HostedZoneId": Object {
+            "Fn::GetAtt": Array [
+              "FargateJPServiceFargateServiceLB0A24CAB1",
+              "CanonicalHostedZoneID",
+            ],
+          },
+        },
+        "HostedZoneId": "Z2N5MJJUEIAVLZ",
+        "Name": "ap-northeast-1.demo.pahud.net.",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "FargateJPServiceFargateServiceLB0A24CAB1": Object {
       "DependsOn": Array [
-        "VPCPublicSubnet1DefaultRoute91CEF279",
-        "VPCPublicSubnet2DefaultRouteB7481BBA",
+        "VpcPublicSubnet1DefaultRoute3DA9E72A",
+        "VpcPublicSubnet2DefaultRoute97F91067",
       ],
       "Properties": Object {
         "LoadBalancerAttributes": Array [
@@ -141,24 +141,24 @@ Object {
         "SecurityGroups": Array [
           Object {
             "Fn::GetAtt": Array [
-              "FargateServiceLBSecurityGroup5F444C78",
+              "FargateJPServiceFargateServiceLBSecurityGroupB7504BB1",
               "GroupId",
             ],
           },
         ],
         "Subnets": Array [
           Object {
-            "Ref": "VPCPublicSubnet1SubnetB4246D30",
+            "Ref": "VpcPublicSubnet1Subnet5C2D37C4",
           },
           Object {
-            "Ref": "VPCPublicSubnet2Subnet74179F39",
+            "Ref": "VpcPublicSubnet2Subnet691E08A3",
           },
         ],
         "Type": "application",
       },
       "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
     },
-    "FargateServiceLBPublicListener4B4929CA": Object {
+    "FargateJPServiceFargateServiceLBPublicListener61C09300": Object {
       "Properties": Object {
         "Certificates": Array [
           Object {
@@ -179,33 +179,33 @@ Object {
         "DefaultActions": Array [
           Object {
             "TargetGroupArn": Object {
-              "Ref": "FargateServiceLBPublicListenerECSGroupBE57E081",
+              "Ref": "FargateJPServiceFargateServiceLBPublicListenerECSGroup20ADAB17",
             },
             "Type": "forward",
           },
         ],
         "LoadBalancerArn": Object {
-          "Ref": "FargateServiceLBB353E155",
+          "Ref": "FargateJPServiceFargateServiceLB0A24CAB1",
         },
         "Port": 443,
         "Protocol": "HTTPS",
       },
       "Type": "AWS::ElasticLoadBalancingV2::Listener",
     },
-    "FargateServiceLBPublicListenerECSGroupBE57E081": Object {
+    "FargateJPServiceFargateServiceLBPublicListenerECSGroup20ADAB17": Object {
       "Properties": Object {
         "Port": 80,
         "Protocol": "HTTP",
         "TargetType": "ip",
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
     },
-    "FargateServiceLBSecurityGroup5F444C78": Object {
+    "FargateJPServiceFargateServiceLBSecurityGroupB7504BB1": Object {
       "Properties": Object {
-        "GroupDescription": "Automatically created Security Group for ELB FargateJPFargateServiceLB58D9A653",
+        "GroupDescription": "Automatically created Security Group for ELB FargateJPStackFargateJPServiceFargateServiceLBD3F076FE",
         "SecurityGroupIngress": Array [
           Object {
             "CidrIp": "0.0.0.0/0",
@@ -216,24 +216,24 @@ Object {
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::SecurityGroup",
     },
-    "FargateServiceLBSecurityGrouptoFargateJPFargateServiceSecurityGroup62B2B31080F46F3B11": Object {
+    "FargateJPServiceFargateServiceLBSecurityGrouptoFargateJPStackFargateJPServiceFargateServiceSecurityGroupBD66E566807DAAC323": Object {
       "Properties": Object {
         "Description": "Load balancer to target",
         "DestinationSecurityGroupId": Object {
           "Fn::GetAtt": Array [
-            "FargateServiceSecurityGroup262B61DD",
+            "FargateJPServiceFargateServiceSecurityGroup0A0D1CE4",
             "GroupId",
           ],
         },
         "FromPort": 80,
         "GroupId": Object {
           "Fn::GetAtt": Array [
-            "FargateServiceLBSecurityGroup5F444C78",
+            "FargateJPServiceFargateServiceLBSecurityGroupB7504BB1",
             "GroupId",
           ],
         },
@@ -242,9 +242,9 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroupEgress",
     },
-    "FargateServiceSecurityGroup262B61DD": Object {
+    "FargateJPServiceFargateServiceSecurityGroup0A0D1CE4": Object {
       "Properties": Object {
-        "GroupDescription": "FargateJP/FargateService/Service/SecurityGroup",
+        "GroupDescription": "FargateJPStack/FargateJPService/FargateService/Service/SecurityGroup",
         "SecurityGroupEgress": Array [
           Object {
             "CidrIp": "0.0.0.0/0",
@@ -253,25 +253,25 @@ Object {
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::SecurityGroup",
     },
-    "FargateServiceSecurityGroupfromFargateJPFargateServiceLBSecurityGroup49B81464800567D0CE": Object {
+    "FargateJPServiceFargateServiceSecurityGroupfromFargateJPStackFargateJPServiceFargateServiceLBSecurityGroup4B363EFA80B5E4F0D9": Object {
       "Properties": Object {
         "Description": "Load balancer to target",
         "FromPort": 80,
         "GroupId": Object {
           "Fn::GetAtt": Array [
-            "FargateServiceSecurityGroup262B61DD",
+            "FargateJPServiceFargateServiceSecurityGroup0A0D1CE4",
             "GroupId",
           ],
         },
         "IpProtocol": "tcp",
         "SourceSecurityGroupId": Object {
           "Fn::GetAtt": Array [
-            "FargateServiceLBSecurityGroup5F444C78",
+            "FargateJPServiceFargateServiceLBSecurityGroupB7504BB1",
             "GroupId",
           ],
         },
@@ -279,7 +279,7 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
-    "Task79114B6B": Object {
+    "FargateJPServiceTask8FB0F9D2": Object {
       "Properties": Object {
         "ContainerDefinitions": Array [
           Object {
@@ -301,7 +301,7 @@ Object {
           },
         ],
         "Cpu": "256",
-        "Family": "FargateJPTaskF8F427E0",
+        "Family": "FargateJPStackFargateJPServiceTaskDCE2EACD",
         "Memory": "512",
         "NetworkMode": "awsvpc",
         "RequiresCompatibilities": Array [
@@ -309,14 +309,14 @@ Object {
         ],
         "TaskRoleArn": Object {
           "Fn::GetAtt": Array [
-            "TaskTaskRoleE98524A1",
+            "FargateJPServiceTaskTaskRoleD61FEAA9",
             "Arn",
           ],
         },
       },
       "Type": "AWS::ECS::TaskDefinition",
     },
-    "TaskTaskRoleE98524A1": Object {
+    "FargateJPServiceTaskTaskRoleD61FEAA9": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -333,7 +333,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "VPCB9E5F0B4": Object {
+    "Vpc8378EB38": Object {
       "Properties": Object {
         "CidrBlock": "10.0.0.0/16",
         "EnableDnsHostnames": true,
@@ -342,61 +342,61 @@ Object {
         "Tags": Array [
           Object {
             "Key": "Name",
-            "Value": "FargateJP/VPC",
+            "Value": "FargateJPStack/Vpc",
           },
         ],
       },
       "Type": "AWS::EC2::VPC",
     },
-    "VPCIGWB7E252D3": Object {
+    "VpcIGWD7BA715C": Object {
       "Properties": Object {
         "Tags": Array [
           Object {
             "Key": "Name",
-            "Value": "FargateJP/VPC",
+            "Value": "FargateJPStack/Vpc",
           },
         ],
       },
       "Type": "AWS::EC2::InternetGateway",
     },
-    "VPCPrivateSubnet1DefaultRouteAE1D6490": Object {
+    "VpcPrivateSubnet1DefaultRouteBE02A9ED": Object {
       "Properties": Object {
         "DestinationCidrBlock": "0.0.0.0/0",
         "NatGatewayId": Object {
-          "Ref": "VPCPublicSubnet1NATGatewayE0556630",
+          "Ref": "VpcPublicSubnet1NATGateway4D7517AA",
         },
         "RouteTableId": Object {
-          "Ref": "VPCPrivateSubnet1RouteTableBE8A6027",
+          "Ref": "VpcPrivateSubnet1RouteTableB2C5B500",
         },
       },
       "Type": "AWS::EC2::Route",
     },
-    "VPCPrivateSubnet1RouteTableAssociation347902D1": Object {
+    "VpcPrivateSubnet1RouteTableAssociation70C59FA6": Object {
       "Properties": Object {
         "RouteTableId": Object {
-          "Ref": "VPCPrivateSubnet1RouteTableBE8A6027",
+          "Ref": "VpcPrivateSubnet1RouteTableB2C5B500",
         },
         "SubnetId": Object {
-          "Ref": "VPCPrivateSubnet1Subnet8BCA10E0",
+          "Ref": "VpcPrivateSubnet1Subnet536B997A",
         },
       },
       "Type": "AWS::EC2::SubnetRouteTableAssociation",
     },
-    "VPCPrivateSubnet1RouteTableBE8A6027": Object {
+    "VpcPrivateSubnet1RouteTableB2C5B500": Object {
       "Properties": Object {
         "Tags": Array [
           Object {
             "Key": "Name",
-            "Value": "FargateJP/VPC/PrivateSubnet1",
+            "Value": "FargateJPStack/Vpc/PrivateSubnet1",
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::RouteTable",
     },
-    "VPCPrivateSubnet1Subnet8BCA10E0": Object {
+    "VpcPrivateSubnet1Subnet536B997A": Object {
       "Properties": Object {
         "AvailabilityZone": Object {
           "Fn::Select": Array [
@@ -419,53 +419,53 @@ Object {
           },
           Object {
             "Key": "Name",
-            "Value": "FargateJP/VPC/PrivateSubnet1",
+            "Value": "FargateJPStack/Vpc/PrivateSubnet1",
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::Subnet",
     },
-    "VPCPrivateSubnet2DefaultRouteF4F5CFD2": Object {
+    "VpcPrivateSubnet2DefaultRoute060D2087": Object {
       "Properties": Object {
         "DestinationCidrBlock": "0.0.0.0/0",
         "NatGatewayId": Object {
-          "Ref": "VPCPublicSubnet1NATGatewayE0556630",
+          "Ref": "VpcPublicSubnet1NATGateway4D7517AA",
         },
         "RouteTableId": Object {
-          "Ref": "VPCPrivateSubnet2RouteTable0A19E10E",
+          "Ref": "VpcPrivateSubnet2RouteTableA678073B",
         },
       },
       "Type": "AWS::EC2::Route",
     },
-    "VPCPrivateSubnet2RouteTable0A19E10E": Object {
+    "VpcPrivateSubnet2RouteTableA678073B": Object {
       "Properties": Object {
         "Tags": Array [
           Object {
             "Key": "Name",
-            "Value": "FargateJP/VPC/PrivateSubnet2",
+            "Value": "FargateJPStack/Vpc/PrivateSubnet2",
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::RouteTable",
     },
-    "VPCPrivateSubnet2RouteTableAssociation0C73D413": Object {
+    "VpcPrivateSubnet2RouteTableAssociationA89CAD56": Object {
       "Properties": Object {
         "RouteTableId": Object {
-          "Ref": "VPCPrivateSubnet2RouteTable0A19E10E",
+          "Ref": "VpcPrivateSubnet2RouteTableA678073B",
         },
         "SubnetId": Object {
-          "Ref": "VPCPrivateSubnet2SubnetCFCDAA7A",
+          "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
         },
       },
       "Type": "AWS::EC2::SubnetRouteTableAssociation",
     },
-    "VPCPrivateSubnet2SubnetCFCDAA7A": Object {
+    "VpcPrivateSubnet2Subnet3788AAA1": Object {
       "Properties": Object {
         "AvailabilityZone": Object {
           "Fn::Select": Array [
@@ -488,88 +488,88 @@ Object {
           },
           Object {
             "Key": "Name",
-            "Value": "FargateJP/VPC/PrivateSubnet2",
+            "Value": "FargateJPStack/Vpc/PrivateSubnet2",
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::Subnet",
     },
-    "VPCPublicSubnet1DefaultRoute91CEF279": Object {
+    "VpcPublicSubnet1DefaultRoute3DA9E72A": Object {
       "DependsOn": Array [
-        "VPCVPCGW99B986DC",
+        "VpcVPCGWBF912B6E",
       ],
       "Properties": Object {
         "DestinationCidrBlock": "0.0.0.0/0",
         "GatewayId": Object {
-          "Ref": "VPCIGWB7E252D3",
+          "Ref": "VpcIGWD7BA715C",
         },
         "RouteTableId": Object {
-          "Ref": "VPCPublicSubnet1RouteTableFEE4B781",
+          "Ref": "VpcPublicSubnet1RouteTable6C95E38E",
         },
       },
       "Type": "AWS::EC2::Route",
     },
-    "VPCPublicSubnet1EIP6AD938E8": Object {
+    "VpcPublicSubnet1EIPD7E02669": Object {
       "Properties": Object {
         "Domain": "vpc",
         "Tags": Array [
           Object {
             "Key": "Name",
-            "Value": "FargateJP/VPC/PublicSubnet1",
+            "Value": "FargateJPStack/Vpc/PublicSubnet1",
           },
         ],
       },
       "Type": "AWS::EC2::EIP",
     },
-    "VPCPublicSubnet1NATGatewayE0556630": Object {
+    "VpcPublicSubnet1NATGateway4D7517AA": Object {
       "Properties": Object {
         "AllocationId": Object {
           "Fn::GetAtt": Array [
-            "VPCPublicSubnet1EIP6AD938E8",
+            "VpcPublicSubnet1EIPD7E02669",
             "AllocationId",
           ],
         },
         "SubnetId": Object {
-          "Ref": "VPCPublicSubnet1SubnetB4246D30",
+          "Ref": "VpcPublicSubnet1Subnet5C2D37C4",
         },
         "Tags": Array [
           Object {
             "Key": "Name",
-            "Value": "FargateJP/VPC/PublicSubnet1",
+            "Value": "FargateJPStack/Vpc/PublicSubnet1",
           },
         ],
       },
       "Type": "AWS::EC2::NatGateway",
     },
-    "VPCPublicSubnet1RouteTableAssociation0B0896DC": Object {
-      "Properties": Object {
-        "RouteTableId": Object {
-          "Ref": "VPCPublicSubnet1RouteTableFEE4B781",
-        },
-        "SubnetId": Object {
-          "Ref": "VPCPublicSubnet1SubnetB4246D30",
-        },
-      },
-      "Type": "AWS::EC2::SubnetRouteTableAssociation",
-    },
-    "VPCPublicSubnet1RouteTableFEE4B781": Object {
+    "VpcPublicSubnet1RouteTable6C95E38E": Object {
       "Properties": Object {
         "Tags": Array [
           Object {
             "Key": "Name",
-            "Value": "FargateJP/VPC/PublicSubnet1",
+            "Value": "FargateJPStack/Vpc/PublicSubnet1",
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::RouteTable",
     },
-    "VPCPublicSubnet1SubnetB4246D30": Object {
+    "VpcPublicSubnet1RouteTableAssociation97140677": Object {
+      "Properties": Object {
+        "RouteTableId": Object {
+          "Ref": "VpcPublicSubnet1RouteTable6C95E38E",
+        },
+        "SubnetId": Object {
+          "Ref": "VpcPublicSubnet1Subnet5C2D37C4",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "VpcPublicSubnet1Subnet5C2D37C4": Object {
       "Properties": Object {
         "AvailabilityZone": Object {
           "Fn::Select": Array [
@@ -592,56 +592,56 @@ Object {
           },
           Object {
             "Key": "Name",
-            "Value": "FargateJP/VPC/PublicSubnet1",
+            "Value": "FargateJPStack/Vpc/PublicSubnet1",
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::Subnet",
     },
-    "VPCPublicSubnet2DefaultRouteB7481BBA": Object {
+    "VpcPublicSubnet2DefaultRoute97F91067": Object {
       "DependsOn": Array [
-        "VPCVPCGW99B986DC",
+        "VpcVPCGWBF912B6E",
       ],
       "Properties": Object {
         "DestinationCidrBlock": "0.0.0.0/0",
         "GatewayId": Object {
-          "Ref": "VPCIGWB7E252D3",
+          "Ref": "VpcIGWD7BA715C",
         },
         "RouteTableId": Object {
-          "Ref": "VPCPublicSubnet2RouteTable6F1A15F1",
+          "Ref": "VpcPublicSubnet2RouteTable94F7E489",
         },
       },
       "Type": "AWS::EC2::Route",
     },
-    "VPCPublicSubnet2RouteTable6F1A15F1": Object {
+    "VpcPublicSubnet2RouteTable94F7E489": Object {
       "Properties": Object {
         "Tags": Array [
           Object {
             "Key": "Name",
-            "Value": "FargateJP/VPC/PublicSubnet2",
+            "Value": "FargateJPStack/Vpc/PublicSubnet2",
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::RouteTable",
     },
-    "VPCPublicSubnet2RouteTableAssociation5A808732": Object {
+    "VpcPublicSubnet2RouteTableAssociationDD5762D8": Object {
       "Properties": Object {
         "RouteTableId": Object {
-          "Ref": "VPCPublicSubnet2RouteTable6F1A15F1",
+          "Ref": "VpcPublicSubnet2RouteTable94F7E489",
         },
         "SubnetId": Object {
-          "Ref": "VPCPublicSubnet2Subnet74179F39",
+          "Ref": "VpcPublicSubnet2Subnet691E08A3",
         },
       },
       "Type": "AWS::EC2::SubnetRouteTableAssociation",
     },
-    "VPCPublicSubnet2Subnet74179F39": Object {
+    "VpcPublicSubnet2Subnet691E08A3": Object {
       "Properties": Object {
         "AvailabilityZone": Object {
           "Fn::Select": Array [
@@ -664,22 +664,22 @@ Object {
           },
           Object {
             "Key": "Name",
-            "Value": "FargateJP/VPC/PublicSubnet2",
+            "Value": "FargateJPStack/Vpc/PublicSubnet2",
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::Subnet",
     },
-    "VPCVPCGW99B986DC": Object {
+    "VpcVPCGWBF912B6E": Object {
       "Properties": Object {
         "InternetGatewayId": Object {
-          "Ref": "VPCIGWB7E252D3",
+          "Ref": "VpcIGWD7BA715C",
         },
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::VPCGatewayAttachment",
@@ -691,83 +691,53 @@ Object {
 exports[`Snapshot 2`] = `
 Object {
   "Outputs": Object {
-    "DnsName": Object {
+    "FargateUSServiceDnsName7497E96F": Object {
       "Value": Object {
         "Fn::GetAtt": Array [
-          "FargateServiceLBB353E155",
+          "FargateUSServiceFargateServiceLB1A663E75",
           "DNSName",
         ],
       },
     },
-    "FargateServiceLoadBalancerDNS9433D5F6": Object {
+    "FargateUSServiceFargateServiceLoadBalancerDNSEDE62750": Object {
       "Value": Object {
         "Fn::GetAtt": Array [
-          "FargateServiceLBB353E155",
+          "FargateUSServiceFargateServiceLB1A663E75",
           "DNSName",
         ],
       },
     },
-    "FargateServiceServiceURL47701F45": Object {
+    "FargateUSServiceFargateServiceServiceURL818E527D": Object {
       "Value": Object {
         "Fn::Join": Array [
           "",
           Array [
             "https://",
             Object {
-              "Ref": "FargateServiceDNS764E1362",
+              "Ref": "FargateUSServiceFargateServiceDNSE546765F",
             },
           ],
         ],
       },
     },
-    "LoadBalancerArn": Object {
+    "FargateUSServiceLoadBalancerArn7785623B": Object {
       "Value": Object {
-        "Ref": "FargateServiceLBB353E155",
+        "Ref": "FargateUSServiceFargateServiceLB1A663E75",
       },
     },
   },
   "Resources": Object {
-    "ClusterEB0386A7": Object {
+    "FargateUSServiceClusterE7A0988A": Object {
       "Type": "AWS::ECS::Cluster",
     },
-    "FargateServiceDNS764E1362": Object {
-      "Properties": Object {
-        "AliasTarget": Object {
-          "DNSName": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "dualstack.",
-                Object {
-                  "Fn::GetAtt": Array [
-                    "FargateServiceLBB353E155",
-                    "DNSName",
-                  ],
-                },
-              ],
-            ],
-          },
-          "HostedZoneId": Object {
-            "Fn::GetAtt": Array [
-              "FargateServiceLBB353E155",
-              "CanonicalHostedZoneID",
-            ],
-          },
-        },
-        "HostedZoneId": "Z2N5MJJUEIAVLZ",
-        "Name": "us-west-2.demo.pahud.net.",
-        "Type": "A",
-      },
-      "Type": "AWS::Route53::RecordSet",
-    },
-    "FargateServiceECC8084D": Object {
+    "FargateUSServiceFargateService9B788279": Object {
       "DependsOn": Array [
-        "FargateServiceLBPublicListenerECSGroupBE57E081",
-        "FargateServiceLBPublicListener4B4929CA",
+        "FargateUSServiceFargateServiceLBPublicListenerECSGroup7390E02D",
+        "FargateUSServiceFargateServiceLBPublicListener0BB614FE",
       ],
       "Properties": Object {
         "Cluster": Object {
-          "Ref": "ClusterEB0386A7",
+          "Ref": "FargateUSServiceClusterE7A0988A",
         },
         "DeploymentConfiguration": Object {
           "MaximumPercent": 200,
@@ -782,7 +752,7 @@ Object {
             "ContainerName": "flask",
             "ContainerPort": 80,
             "TargetGroupArn": Object {
-              "Ref": "FargateServiceLBPublicListenerECSGroupBE57E081",
+              "Ref": "FargateUSServiceFargateServiceLBPublicListenerECSGroup7390E02D",
             },
           },
         ],
@@ -792,31 +762,61 @@ Object {
             "SecurityGroups": Array [
               Object {
                 "Fn::GetAtt": Array [
-                  "FargateServiceSecurityGroup262B61DD",
+                  "FargateUSServiceFargateServiceSecurityGroup98377221",
                   "GroupId",
                 ],
               },
             ],
             "Subnets": Array [
               Object {
-                "Ref": "VPCPrivateSubnet1Subnet8BCA10E0",
+                "Ref": "VpcPrivateSubnet1Subnet536B997A",
               },
               Object {
-                "Ref": "VPCPrivateSubnet2SubnetCFCDAA7A",
+                "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
               },
             ],
           },
         },
         "TaskDefinition": Object {
-          "Ref": "Task79114B6B",
+          "Ref": "FargateUSServiceTaskB6C05AC6",
         },
       },
       "Type": "AWS::ECS::Service",
     },
-    "FargateServiceLBB353E155": Object {
+    "FargateUSServiceFargateServiceDNSE546765F": Object {
+      "Properties": Object {
+        "AliasTarget": Object {
+          "DNSName": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "dualstack.",
+                Object {
+                  "Fn::GetAtt": Array [
+                    "FargateUSServiceFargateServiceLB1A663E75",
+                    "DNSName",
+                  ],
+                },
+              ],
+            ],
+          },
+          "HostedZoneId": Object {
+            "Fn::GetAtt": Array [
+              "FargateUSServiceFargateServiceLB1A663E75",
+              "CanonicalHostedZoneID",
+            ],
+          },
+        },
+        "HostedZoneId": "Z2N5MJJUEIAVLZ",
+        "Name": "us-west-2.demo.pahud.net.",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "FargateUSServiceFargateServiceLB1A663E75": Object {
       "DependsOn": Array [
-        "VPCPublicSubnet1DefaultRoute91CEF279",
-        "VPCPublicSubnet2DefaultRouteB7481BBA",
+        "VpcPublicSubnet1DefaultRoute3DA9E72A",
+        "VpcPublicSubnet2DefaultRoute97F91067",
       ],
       "Properties": Object {
         "LoadBalancerAttributes": Array [
@@ -829,24 +829,24 @@ Object {
         "SecurityGroups": Array [
           Object {
             "Fn::GetAtt": Array [
-              "FargateServiceLBSecurityGroup5F444C78",
+              "FargateUSServiceFargateServiceLBSecurityGroup3E22DEED",
               "GroupId",
             ],
           },
         ],
         "Subnets": Array [
           Object {
-            "Ref": "VPCPublicSubnet1SubnetB4246D30",
+            "Ref": "VpcPublicSubnet1Subnet5C2D37C4",
           },
           Object {
-            "Ref": "VPCPublicSubnet2Subnet74179F39",
+            "Ref": "VpcPublicSubnet2Subnet691E08A3",
           },
         ],
         "Type": "application",
       },
       "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
     },
-    "FargateServiceLBPublicListener4B4929CA": Object {
+    "FargateUSServiceFargateServiceLBPublicListener0BB614FE": Object {
       "Properties": Object {
         "Certificates": Array [
           Object {
@@ -867,33 +867,33 @@ Object {
         "DefaultActions": Array [
           Object {
             "TargetGroupArn": Object {
-              "Ref": "FargateServiceLBPublicListenerECSGroupBE57E081",
+              "Ref": "FargateUSServiceFargateServiceLBPublicListenerECSGroup7390E02D",
             },
             "Type": "forward",
           },
         ],
         "LoadBalancerArn": Object {
-          "Ref": "FargateServiceLBB353E155",
+          "Ref": "FargateUSServiceFargateServiceLB1A663E75",
         },
         "Port": 443,
         "Protocol": "HTTPS",
       },
       "Type": "AWS::ElasticLoadBalancingV2::Listener",
     },
-    "FargateServiceLBPublicListenerECSGroupBE57E081": Object {
+    "FargateUSServiceFargateServiceLBPublicListenerECSGroup7390E02D": Object {
       "Properties": Object {
         "Port": 80,
         "Protocol": "HTTP",
         "TargetType": "ip",
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
     },
-    "FargateServiceLBSecurityGroup5F444C78": Object {
+    "FargateUSServiceFargateServiceLBSecurityGroup3E22DEED": Object {
       "Properties": Object {
-        "GroupDescription": "Automatically created Security Group for ELB FargateUSFargateServiceLBF1CD0975",
+        "GroupDescription": "Automatically created Security Group for ELB FargateUSStackFargateUSServiceFargateServiceLB01CD4EDA",
         "SecurityGroupIngress": Array [
           Object {
             "CidrIp": "0.0.0.0/0",
@@ -904,24 +904,24 @@ Object {
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::SecurityGroup",
     },
-    "FargateServiceLBSecurityGrouptoFargateUSFargateServiceSecurityGroup546FA49B80475841C8": Object {
+    "FargateUSServiceFargateServiceLBSecurityGrouptoFargateUSStackFargateUSServiceFargateServiceSecurityGroup1A33E5CC80C05C650B": Object {
       "Properties": Object {
         "Description": "Load balancer to target",
         "DestinationSecurityGroupId": Object {
           "Fn::GetAtt": Array [
-            "FargateServiceSecurityGroup262B61DD",
+            "FargateUSServiceFargateServiceSecurityGroup98377221",
             "GroupId",
           ],
         },
         "FromPort": 80,
         "GroupId": Object {
           "Fn::GetAtt": Array [
-            "FargateServiceLBSecurityGroup5F444C78",
+            "FargateUSServiceFargateServiceLBSecurityGroup3E22DEED",
             "GroupId",
           ],
         },
@@ -930,9 +930,9 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroupEgress",
     },
-    "FargateServiceSecurityGroup262B61DD": Object {
+    "FargateUSServiceFargateServiceSecurityGroup98377221": Object {
       "Properties": Object {
-        "GroupDescription": "FargateUS/FargateService/Service/SecurityGroup",
+        "GroupDescription": "FargateUSStack/FargateUSService/FargateService/Service/SecurityGroup",
         "SecurityGroupEgress": Array [
           Object {
             "CidrIp": "0.0.0.0/0",
@@ -941,25 +941,25 @@ Object {
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::SecurityGroup",
     },
-    "FargateServiceSecurityGroupfromFargateUSFargateServiceLBSecurityGroup3304434580642C1A38": Object {
+    "FargateUSServiceFargateServiceSecurityGroupfromFargateUSStackFargateUSServiceFargateServiceLBSecurityGroupC297A2CE80850F8598": Object {
       "Properties": Object {
         "Description": "Load balancer to target",
         "FromPort": 80,
         "GroupId": Object {
           "Fn::GetAtt": Array [
-            "FargateServiceSecurityGroup262B61DD",
+            "FargateUSServiceFargateServiceSecurityGroup98377221",
             "GroupId",
           ],
         },
         "IpProtocol": "tcp",
         "SourceSecurityGroupId": Object {
           "Fn::GetAtt": Array [
-            "FargateServiceLBSecurityGroup5F444C78",
+            "FargateUSServiceFargateServiceLBSecurityGroup3E22DEED",
             "GroupId",
           ],
         },
@@ -967,7 +967,7 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
-    "Task79114B6B": Object {
+    "FargateUSServiceTaskB6C05AC6": Object {
       "Properties": Object {
         "ContainerDefinitions": Array [
           Object {
@@ -989,7 +989,7 @@ Object {
           },
         ],
         "Cpu": "256",
-        "Family": "FargateUSTask4A2EE478",
+        "Family": "FargateUSStackFargateUSServiceTask73F18E3A",
         "Memory": "512",
         "NetworkMode": "awsvpc",
         "RequiresCompatibilities": Array [
@@ -997,14 +997,14 @@ Object {
         ],
         "TaskRoleArn": Object {
           "Fn::GetAtt": Array [
-            "TaskTaskRoleE98524A1",
+            "FargateUSServiceTaskTaskRoleD0A0CE84",
             "Arn",
           ],
         },
       },
       "Type": "AWS::ECS::TaskDefinition",
     },
-    "TaskTaskRoleE98524A1": Object {
+    "FargateUSServiceTaskTaskRoleD0A0CE84": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -1021,7 +1021,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "VPCB9E5F0B4": Object {
+    "Vpc8378EB38": Object {
       "Properties": Object {
         "CidrBlock": "10.0.0.0/16",
         "EnableDnsHostnames": true,
@@ -1030,61 +1030,61 @@ Object {
         "Tags": Array [
           Object {
             "Key": "Name",
-            "Value": "FargateUS/VPC",
+            "Value": "FargateUSStack/Vpc",
           },
         ],
       },
       "Type": "AWS::EC2::VPC",
     },
-    "VPCIGWB7E252D3": Object {
+    "VpcIGWD7BA715C": Object {
       "Properties": Object {
         "Tags": Array [
           Object {
             "Key": "Name",
-            "Value": "FargateUS/VPC",
+            "Value": "FargateUSStack/Vpc",
           },
         ],
       },
       "Type": "AWS::EC2::InternetGateway",
     },
-    "VPCPrivateSubnet1DefaultRouteAE1D6490": Object {
+    "VpcPrivateSubnet1DefaultRouteBE02A9ED": Object {
       "Properties": Object {
         "DestinationCidrBlock": "0.0.0.0/0",
         "NatGatewayId": Object {
-          "Ref": "VPCPublicSubnet1NATGatewayE0556630",
+          "Ref": "VpcPublicSubnet1NATGateway4D7517AA",
         },
         "RouteTableId": Object {
-          "Ref": "VPCPrivateSubnet1RouteTableBE8A6027",
+          "Ref": "VpcPrivateSubnet1RouteTableB2C5B500",
         },
       },
       "Type": "AWS::EC2::Route",
     },
-    "VPCPrivateSubnet1RouteTableAssociation347902D1": Object {
+    "VpcPrivateSubnet1RouteTableAssociation70C59FA6": Object {
       "Properties": Object {
         "RouteTableId": Object {
-          "Ref": "VPCPrivateSubnet1RouteTableBE8A6027",
+          "Ref": "VpcPrivateSubnet1RouteTableB2C5B500",
         },
         "SubnetId": Object {
-          "Ref": "VPCPrivateSubnet1Subnet8BCA10E0",
+          "Ref": "VpcPrivateSubnet1Subnet536B997A",
         },
       },
       "Type": "AWS::EC2::SubnetRouteTableAssociation",
     },
-    "VPCPrivateSubnet1RouteTableBE8A6027": Object {
+    "VpcPrivateSubnet1RouteTableB2C5B500": Object {
       "Properties": Object {
         "Tags": Array [
           Object {
             "Key": "Name",
-            "Value": "FargateUS/VPC/PrivateSubnet1",
+            "Value": "FargateUSStack/Vpc/PrivateSubnet1",
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::RouteTable",
     },
-    "VPCPrivateSubnet1Subnet8BCA10E0": Object {
+    "VpcPrivateSubnet1Subnet536B997A": Object {
       "Properties": Object {
         "AvailabilityZone": Object {
           "Fn::Select": Array [
@@ -1107,53 +1107,53 @@ Object {
           },
           Object {
             "Key": "Name",
-            "Value": "FargateUS/VPC/PrivateSubnet1",
+            "Value": "FargateUSStack/Vpc/PrivateSubnet1",
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::Subnet",
     },
-    "VPCPrivateSubnet2DefaultRouteF4F5CFD2": Object {
+    "VpcPrivateSubnet2DefaultRoute060D2087": Object {
       "Properties": Object {
         "DestinationCidrBlock": "0.0.0.0/0",
         "NatGatewayId": Object {
-          "Ref": "VPCPublicSubnet1NATGatewayE0556630",
+          "Ref": "VpcPublicSubnet1NATGateway4D7517AA",
         },
         "RouteTableId": Object {
-          "Ref": "VPCPrivateSubnet2RouteTable0A19E10E",
+          "Ref": "VpcPrivateSubnet2RouteTableA678073B",
         },
       },
       "Type": "AWS::EC2::Route",
     },
-    "VPCPrivateSubnet2RouteTable0A19E10E": Object {
+    "VpcPrivateSubnet2RouteTableA678073B": Object {
       "Properties": Object {
         "Tags": Array [
           Object {
             "Key": "Name",
-            "Value": "FargateUS/VPC/PrivateSubnet2",
+            "Value": "FargateUSStack/Vpc/PrivateSubnet2",
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::RouteTable",
     },
-    "VPCPrivateSubnet2RouteTableAssociation0C73D413": Object {
+    "VpcPrivateSubnet2RouteTableAssociationA89CAD56": Object {
       "Properties": Object {
         "RouteTableId": Object {
-          "Ref": "VPCPrivateSubnet2RouteTable0A19E10E",
+          "Ref": "VpcPrivateSubnet2RouteTableA678073B",
         },
         "SubnetId": Object {
-          "Ref": "VPCPrivateSubnet2SubnetCFCDAA7A",
+          "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
         },
       },
       "Type": "AWS::EC2::SubnetRouteTableAssociation",
     },
-    "VPCPrivateSubnet2SubnetCFCDAA7A": Object {
+    "VpcPrivateSubnet2Subnet3788AAA1": Object {
       "Properties": Object {
         "AvailabilityZone": Object {
           "Fn::Select": Array [
@@ -1176,88 +1176,88 @@ Object {
           },
           Object {
             "Key": "Name",
-            "Value": "FargateUS/VPC/PrivateSubnet2",
+            "Value": "FargateUSStack/Vpc/PrivateSubnet2",
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::Subnet",
     },
-    "VPCPublicSubnet1DefaultRoute91CEF279": Object {
+    "VpcPublicSubnet1DefaultRoute3DA9E72A": Object {
       "DependsOn": Array [
-        "VPCVPCGW99B986DC",
+        "VpcVPCGWBF912B6E",
       ],
       "Properties": Object {
         "DestinationCidrBlock": "0.0.0.0/0",
         "GatewayId": Object {
-          "Ref": "VPCIGWB7E252D3",
+          "Ref": "VpcIGWD7BA715C",
         },
         "RouteTableId": Object {
-          "Ref": "VPCPublicSubnet1RouteTableFEE4B781",
+          "Ref": "VpcPublicSubnet1RouteTable6C95E38E",
         },
       },
       "Type": "AWS::EC2::Route",
     },
-    "VPCPublicSubnet1EIP6AD938E8": Object {
+    "VpcPublicSubnet1EIPD7E02669": Object {
       "Properties": Object {
         "Domain": "vpc",
         "Tags": Array [
           Object {
             "Key": "Name",
-            "Value": "FargateUS/VPC/PublicSubnet1",
+            "Value": "FargateUSStack/Vpc/PublicSubnet1",
           },
         ],
       },
       "Type": "AWS::EC2::EIP",
     },
-    "VPCPublicSubnet1NATGatewayE0556630": Object {
+    "VpcPublicSubnet1NATGateway4D7517AA": Object {
       "Properties": Object {
         "AllocationId": Object {
           "Fn::GetAtt": Array [
-            "VPCPublicSubnet1EIP6AD938E8",
+            "VpcPublicSubnet1EIPD7E02669",
             "AllocationId",
           ],
         },
         "SubnetId": Object {
-          "Ref": "VPCPublicSubnet1SubnetB4246D30",
+          "Ref": "VpcPublicSubnet1Subnet5C2D37C4",
         },
         "Tags": Array [
           Object {
             "Key": "Name",
-            "Value": "FargateUS/VPC/PublicSubnet1",
+            "Value": "FargateUSStack/Vpc/PublicSubnet1",
           },
         ],
       },
       "Type": "AWS::EC2::NatGateway",
     },
-    "VPCPublicSubnet1RouteTableAssociation0B0896DC": Object {
-      "Properties": Object {
-        "RouteTableId": Object {
-          "Ref": "VPCPublicSubnet1RouteTableFEE4B781",
-        },
-        "SubnetId": Object {
-          "Ref": "VPCPublicSubnet1SubnetB4246D30",
-        },
-      },
-      "Type": "AWS::EC2::SubnetRouteTableAssociation",
-    },
-    "VPCPublicSubnet1RouteTableFEE4B781": Object {
+    "VpcPublicSubnet1RouteTable6C95E38E": Object {
       "Properties": Object {
         "Tags": Array [
           Object {
             "Key": "Name",
-            "Value": "FargateUS/VPC/PublicSubnet1",
+            "Value": "FargateUSStack/Vpc/PublicSubnet1",
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::RouteTable",
     },
-    "VPCPublicSubnet1SubnetB4246D30": Object {
+    "VpcPublicSubnet1RouteTableAssociation97140677": Object {
+      "Properties": Object {
+        "RouteTableId": Object {
+          "Ref": "VpcPublicSubnet1RouteTable6C95E38E",
+        },
+        "SubnetId": Object {
+          "Ref": "VpcPublicSubnet1Subnet5C2D37C4",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "VpcPublicSubnet1Subnet5C2D37C4": Object {
       "Properties": Object {
         "AvailabilityZone": Object {
           "Fn::Select": Array [
@@ -1280,56 +1280,56 @@ Object {
           },
           Object {
             "Key": "Name",
-            "Value": "FargateUS/VPC/PublicSubnet1",
+            "Value": "FargateUSStack/Vpc/PublicSubnet1",
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::Subnet",
     },
-    "VPCPublicSubnet2DefaultRouteB7481BBA": Object {
+    "VpcPublicSubnet2DefaultRoute97F91067": Object {
       "DependsOn": Array [
-        "VPCVPCGW99B986DC",
+        "VpcVPCGWBF912B6E",
       ],
       "Properties": Object {
         "DestinationCidrBlock": "0.0.0.0/0",
         "GatewayId": Object {
-          "Ref": "VPCIGWB7E252D3",
+          "Ref": "VpcIGWD7BA715C",
         },
         "RouteTableId": Object {
-          "Ref": "VPCPublicSubnet2RouteTable6F1A15F1",
+          "Ref": "VpcPublicSubnet2RouteTable94F7E489",
         },
       },
       "Type": "AWS::EC2::Route",
     },
-    "VPCPublicSubnet2RouteTable6F1A15F1": Object {
+    "VpcPublicSubnet2RouteTable94F7E489": Object {
       "Properties": Object {
         "Tags": Array [
           Object {
             "Key": "Name",
-            "Value": "FargateUS/VPC/PublicSubnet2",
+            "Value": "FargateUSStack/Vpc/PublicSubnet2",
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::RouteTable",
     },
-    "VPCPublicSubnet2RouteTableAssociation5A808732": Object {
+    "VpcPublicSubnet2RouteTableAssociationDD5762D8": Object {
       "Properties": Object {
         "RouteTableId": Object {
-          "Ref": "VPCPublicSubnet2RouteTable6F1A15F1",
+          "Ref": "VpcPublicSubnet2RouteTable94F7E489",
         },
         "SubnetId": Object {
-          "Ref": "VPCPublicSubnet2Subnet74179F39",
+          "Ref": "VpcPublicSubnet2Subnet691E08A3",
         },
       },
       "Type": "AWS::EC2::SubnetRouteTableAssociation",
     },
-    "VPCPublicSubnet2Subnet74179F39": Object {
+    "VpcPublicSubnet2Subnet691E08A3": Object {
       "Properties": Object {
         "AvailabilityZone": Object {
           "Fn::Select": Array [
@@ -1352,22 +1352,22 @@ Object {
           },
           Object {
             "Key": "Name",
-            "Value": "FargateUS/VPC/PublicSubnet2",
+            "Value": "FargateUSStack/Vpc/PublicSubnet2",
           },
         ],
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::Subnet",
     },
-    "VPCVPCGW99B986DC": Object {
+    "VpcVPCGWBF912B6E": Object {
       "Properties": Object {
         "InternetGatewayId": Object {
-          "Ref": "VPCIGWB7E252D3",
+          "Ref": "VpcIGWD7BA715C",
         },
         "VpcId": Object {
-          "Ref": "VPCB9E5F0B4",
+          "Ref": "Vpc8378EB38",
         },
       },
       "Type": "AWS::EC2::VPCGatewayAttachment",
@@ -1784,7 +1784,7 @@ Object {
           ],
         },
         "regionName": "ap-northeast-1",
-        "stackName": "FargateJP",
+        "stackName": "FargateJPStack",
       },
       "Type": "AWS::CloudFormation::CustomResource",
       "UpdateReplacePolicy": "Delete",
@@ -2180,7 +2180,7 @@ Object {
           ],
         },
         "regionName": "us-west-2",
-        "stackName": "FargateUS",
+        "stackName": "FargateUSStack",
       },
       "Type": "AWS::CloudFormation::CustomResource",
       "UpdateReplacePolicy": "Delete",
