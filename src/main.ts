@@ -77,3 +77,5 @@ export class Main {
     this.app = app;
   }
 }
+
+new Main();
