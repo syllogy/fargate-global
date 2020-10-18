@@ -146,7 +146,7 @@ export class Route53Provider extends cdk.Construct {
 
 function getOrCreateVpc(scope: cdk.Construct): IVpc {
   // use an existing vpc or create a new one
-  const stack = cdk.Stack.of(scope)
+  const stack = cdk.Stack.of(scope);
   return stack.node.tryGetContext('use_default_vpc') === '1' ?
     Vpc.fromLookup(stack, 'Vpc', { isDefault: true }) :
     stack.node.tryGetContext('use_vpc_id') ?

@@ -29,11 +29,11 @@ export class Main {
 
     // fargate from JP
     const fargateJP = new cdk.Stack(app, 'FargateJPStack', { env: envJP });
-    new FargateAlbService(fargateJP,'FargateJPService')
+    new FargateAlbService(fargateJP, 'FargateJPService');
 
     // fargate from US
     const fargateUS = new cdk.Stack(app, 'FargateUSStack', { env: envUS });
-    new FargateAlbService(fargateUS, 'FargateUSService')
+    new FargateAlbService(fargateUS, 'FargateUSService');
 
     // Global Accelerator
     const gaStack = new cdk.Stack(app, 'GAStack', { env: envUS });
