@@ -4,17 +4,16 @@ const {
   Semver
 } = require('projen');
 
-const AUTOMATION_TOKEN = 'GITHUB_TOKEN';
+const AUTOMATION_TOKEN = 'AUTOMATION_GITHUB_TOKEN';
 
 
 const project = new AwsCdkTypeScriptApp({
-  cdkVersion: "1.63.0",
+  cdkVersion: "1.68.0",
   name: "fargate-global",
   authorName: "Pahud Hsieh",
   authorEmail: "pahudnet@gmail.com",
   repository: "https://github.com/pahud/fargate-global.git",
   dependabot: false,
-  antitamper: false,
   cdkDependencies: [
     "@aws-cdk/aws-certificatemanager",
     "@aws-cdk/aws-ec2",
@@ -47,18 +46,17 @@ workflow.addJobs({
   upgrade: {
     'runs-on': 'ubuntu-latest',
     'steps': [
-      ...project.workflowBootstrapSteps,
-
-      // yarn upgrade
-      {
-        run: `yarn upgrade`
+      { uses: 'actions/checkout@v2' },
+      { 
+        uses: 'actions/setup-node@v1',
+        with: {
+          'node-version': '10.17.0',
+        }
       },
-
-      // upgrade projen
-      {
-        run: `yarn projen:upgrade`
-      },
-
+      // { run: `yarn install` },
+      // { run: `yarn projen` },
+      { run: `yarn upgrade` },
+      { run: `yarn projen:upgrade` },
       // submit a PR
       {
         name: 'Create Pull Request',
