@@ -15,7 +15,6 @@ dist
 /.eslintrc.json
 cdk.out/
 .cdk.staging/
-cdk.out
 cdk.context.json
 docker-compose.yml
 yarn-error.log
