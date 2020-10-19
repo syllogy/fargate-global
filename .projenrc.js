@@ -6,7 +6,6 @@ const {
 
 const AUTOMATION_TOKEN = 'AUTOMATION_GITHUB_TOKEN';
 
-
 const project = new AwsCdkTypeScriptApp({
   cdkVersion: "1.68.0",
   name: "fargate-global",
@@ -37,8 +36,8 @@ const workflow = new GithubWorkflow(project, 'ProjenYarnUpgrade');
 
 workflow.on({
   schedule: [{
-    cron: '0 6 * * *'
-  }], // 6am every day
+    cron: '11 0 * * *'
+  }], // 0:11am every day
   workflow_dispatch: {}, // allow manual triggering
 });
 
