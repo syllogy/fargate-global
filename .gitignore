@@ -47,6 +47,7 @@ cdk.out/
 cdk.context.json
 docker-compose.yml
 yarn-error.log
+!/.projen/tasks.json
 !/package.json
 !/.npmignore
 !/LICENSE
@@ -57,6 +58,7 @@ yarn-error.log
 !/.github/workflows/build.yml
 !/.mergify.yml
 !/.github/pull_request_template.md
+!/.github/workflows/rebuild-bot.yml
 !/tsconfig.json
 !/src
 !/tsconfig.jest.json

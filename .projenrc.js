@@ -7,7 +7,7 @@ const {
 const AUTOMATION_TOKEN = 'AUTOMATION_GITHUB_TOKEN';
 
 const project = new AwsCdkTypeScriptApp({
-  cdkVersion: "1.68.0",
+  cdkVersion: "1.77.0",
   name: "fargate-global",
   authorName: "Pahud Hsieh",
   authorEmail: "pahudnet@gmail.com",
@@ -32,7 +32,7 @@ project.addDependencies({
 
 
 // create a custom projen and yarn upgrade workflow
-const workflow = new GithubWorkflow(project, 'ProjenYarnUpgrade');
+workflow = project.github.addWorkflow('ProjenYarnUpgrade');
 
 workflow.on({
   schedule: [{
