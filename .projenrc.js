@@ -1,8 +1,4 @@
-const {
-  AwsCdkTypeScriptApp,
-  GithubWorkflow,
-  Semver,
-} = require('projen');
+const { AwsCdkTypeScriptApp } = require('projen');
 
 const AUTOMATION_TOKEN = 'AUTOMATION_GITHUB_TOKEN';
 
@@ -24,10 +20,7 @@ const project = new AwsCdkTypeScriptApp({
     '@aws-cdk/aws-route53-targets',
     '@aws-cdk/core',
   ],
-});
-
-project.addDependencies({
-  'cdk-remote-stack': Semver.caret('0.1.38'),
+  deps: ['cdk-remote-stack'],
 });
 
 
