@@ -11,7 +11,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 10.17.0
-      - run: yarn upgrade
+      - run: yarn upgrade || yarn install
       - run: yarn projen:upgrade
       - run: yarn test
       - name: Create Pull Request

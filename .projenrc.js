@@ -82,7 +82,7 @@ projenYarnUpgradeUpdateTest.addJobs({
           'node-version': '10.17.0',
         },
       },
-      { run: 'yarn upgrade' },
+      { run: 'yarn upgrade || yarn install' },
       { run: 'yarn projen:upgrade' },
       { run: 'yarn test' },
       // submit a PR
