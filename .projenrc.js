@@ -21,6 +21,7 @@ const project = new AwsCdkTypeScriptApp({
     '@aws-cdk/core',
   ],
   deps: ['cdk-remote-stack'],
+  defaultReleaseBranch: ['main'],
 });
 
 
