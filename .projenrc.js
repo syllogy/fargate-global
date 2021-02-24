@@ -1,6 +1,7 @@
 const { AwsCdkTypeScriptApp } = require('projen');
+const { Automation } = require('projen-automate-it');
 
-const AUTOMATION_TOKEN = 'AUTOMATION_GITHUB_TOKEN';
+const AUTOMATION_TOKEN = 'PROJEN_GITHUB_TOKEN';
 
 const project = new AwsCdkTypeScriptApp({
   cdkVersion: '1.77.0',
@@ -20,88 +21,17 @@ const project = new AwsCdkTypeScriptApp({
     '@aws-cdk/aws-route53-targets',
     '@aws-cdk/core',
   ],
-  deps: ['cdk-remote-stack'],
+  deps: ['cdk-remote-stack', 'projen-automate-it'],
   defaultReleaseBranch: ['main'],
 });
 
 
-// create a custom projen and yarn upgrade workflow
-projenYarnUpgrade = project.github.addWorkflow('ProjenYarnUpgrade');
-
-projenYarnUpgrade.on({
-  schedule: [{
-    cron: '11 0 * * *',
-  }], // 0:11am every day
-  workflow_dispatch: {}, // allow manual triggering
+const automation = new Automation(project, {
+  automationToken: AUTOMATION_TOKEN,
 });
-
-projenYarnUpgrade.addJobs({
-  upgrade: {
-    'runs-on': 'ubuntu-latest',
-    'steps': [
-      { uses: 'actions/checkout@v2' },
-      {
-        uses: 'actions/setup-node@v1',
-        with: {
-          'node-version': '10.17.0',
-        },
-      },
-      { run: 'yarn upgrade' },
-      { run: 'yarn projen:upgrade' },
-      // submit a PR
-      {
-        name: 'Create Pull Request',
-        uses: 'peter-evans/create-pull-request@v3',
-        with: {
-          'token': '${{ secrets.' + AUTOMATION_TOKEN + ' }}',
-          'commit-message': 'chore: upgrade projen',
-          'branch': 'auto/projen-upgrade',
-          'title': 'chore: upgrade projen and yarn',
-          'body': 'This PR upgrades projen and yarn upgrade to the latest version',
-          'labels': 'auto-merge',
-        },
-      },
-    ],
-  },
-});
-
-// allow manual run this workflow to update the test snapshots
-projenYarnUpgradeUpdateTest = project.github.addWorkflow('ProjenYarnUpgradeUpdateTest');
-
-projenYarnUpgradeUpdateTest.on({
-  workflow_dispatch: {}, // manual trigger only
-});
-
-projenYarnUpgradeUpdateTest.addJobs({
-  upgrade: {
-    'runs-on': 'ubuntu-latest',
-    'steps': [
-      { uses: 'actions/checkout@v2' },
-      {
-        uses: 'actions/setup-node@v1',
-        with: {
-          'node-version': '10.17.0',
-        },
-      },
-      { run: 'yarn upgrade || yarn install' },
-      { run: 'yarn projen:upgrade' },
-      { run: 'yarn test' },
-      // submit a PR
-      {
-        name: 'Create Pull Request',
-        uses: 'peter-evans/create-pull-request@v3',
-        with: {
-          'token': '${{ secrets.' + AUTOMATION_TOKEN + ' }}',
-          'commit-message': 'chore: upgrade projen',
-          'branch': 'auto/projen-upgrade',
-          'title': 'chore: upgrade projen and yarn',
-          'body': 'This PR upgrades projen and yarn upgrade to the latest version',
-          'labels': 'auto-merge',
-        },
-      },
-    ],
-  },
-});
+automation.autoApprove();
+automation.autoMerge();
+automation.projenYarnUpgrade();
 
 
 const common_exclude = ['cdk.context.json', 'docker-compose.yml', 'yarn-error.log'];
