@@ -1449,7 +1449,7 @@ Object {
     "GlobalAcceleratorProvider2D7F2596": Object {
       "Properties": Object {
         "Enabled": true,
-        "Name": "GlobalAcceleratorProvider",
+        "Name": "GAStackGlobalAcceleratorProviderA12EB8D1",
       },
       "Type": "AWS::GlobalAccelerator::Accelerator",
     },

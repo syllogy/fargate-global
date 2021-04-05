@@ -99,6 +99,16 @@
       "type": "runtime"
     },
     {
+      "name": "@aws-cdk/aws-elasticloadbalancingv2",
+      "version": "^1.77.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-cdk/aws-globalaccelerator-endpoints",
+      "version": "^1.77.0",
+      "type": "runtime"
+    },
+    {
       "name": "@aws-cdk/aws-globalaccelerator",
       "version": "^1.77.0",
       "type": "runtime"

@@ -53,13 +53,15 @@
     "@aws-cdk/aws-ec2": "^1.77.0",
     "@aws-cdk/aws-ecs": "^1.77.0",
     "@aws-cdk/aws-ecs-patterns": "^1.77.0",
+    "@aws-cdk/aws-elasticloadbalancingv2": "^1.77.0",
     "@aws-cdk/aws-globalaccelerator": "^1.77.0",
+    "@aws-cdk/aws-globalaccelerator-endpoints": "^1.77.0",
     "@aws-cdk/aws-route53": "^1.77.0",
     "@aws-cdk/aws-route53-patterns": "^1.77.0",
     "@aws-cdk/aws-route53-targets": "^1.77.0",
     "@aws-cdk/core": "^1.77.0",
     "cdk-remote-stack": "^0.1.136",
-    "projen-automate-it": "^0.0.4"
+    "projen-automate-it": "^0.0.8"
   },
   "bundledDependencies": [],
   "license": "Apache-2.0",
