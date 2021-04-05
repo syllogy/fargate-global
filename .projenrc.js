@@ -16,6 +16,8 @@ const project = new AwsCdkTypeScriptApp({
     '@aws-cdk/aws-ecs',
     '@aws-cdk/aws-ecs-patterns',
     '@aws-cdk/aws-globalaccelerator',
+    '@aws-cdk/aws-globalaccelerator-endpoints',
+    '@aws-cdk/aws-elasticloadbalancingv2',
     '@aws-cdk/aws-route53',
     '@aws-cdk/aws-route53-patterns',
     '@aws-cdk/aws-route53-targets',

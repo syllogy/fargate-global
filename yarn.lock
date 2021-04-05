@@ -348,7 +348,7 @@
     "@aws-cdk/core" "1.96.0"
     constructs "^3.3.69"
 
-"@aws-cdk/aws-elasticloadbalancingv2@1.96.0":
+"@aws-cdk/aws-elasticloadbalancingv2@1.96.0", "@aws-cdk/aws-elasticloadbalancingv2@^1.77.0":
   version "1.96.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-elasticloadbalancingv2/-/aws-elasticloadbalancingv2-1.96.0.tgz#fc4f5b1a24857e6a94af38ffdcd2eed81cc2f969"
   integrity sha512-hb03P0x6ISZlX96AkPRHJ4dkNnWcGbR+qmXv1vhr8erBoBDEzYDxuBn8D2POiNGPD+/nWzmYNZyOr9P2ptq05A==
@@ -395,6 +395,17 @@
   integrity sha512-sbfwjyvpRiDIKnJ9T4wDyv9e1783bzHPBalZqoUCmITXEDzETM1JR6lvsEbnIdzLlutx2MALIL4fKc9lWmeMVA==
   dependencies:
     "@aws-cdk/aws-iam" "1.96.0"
+    "@aws-cdk/core" "1.96.0"
+    constructs "^3.3.69"
+
+"@aws-cdk/aws-globalaccelerator-endpoints@^1.77.0":
+  version "1.96.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-globalaccelerator-endpoints/-/aws-globalaccelerator-endpoints-1.96.0.tgz#f567fc9c959aa0c5947948f37be5d8d2825bffa6"
+  integrity sha512-jrrfrxts7BG/kIXF1uO+aXz37kJ8OglwUFzaXh0NDlFBwk2nmRJJOrrW0ib+ztc5byR7eY13OaHO2Y1Ug6VxAw==
+  dependencies:
+    "@aws-cdk/aws-ec2" "1.96.0"
+    "@aws-cdk/aws-elasticloadbalancingv2" "1.96.0"
+    "@aws-cdk/aws-globalaccelerator" "1.96.0"
     "@aws-cdk/core" "1.96.0"
     constructs "^3.3.69"
 
@@ -5627,30 +5638,14 @@ progress@^2.0.0:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
-projen-automate-it@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/projen-automate-it/-/projen-automate-it-0.0.4.tgz#b28c114a36eb363b9f6415cd9e2745268413aa20"
-  integrity sha512-0Mu2a9Mn1jkgH7+ZRKAikvI8tlkoXmG6OWacV7N9l3PPQk17UFjUOgjBTz1vFyPzPrQynulTiQOeK5XgOMMSLg==
+projen-automate-it@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/projen-automate-it/-/projen-automate-it-0.0.8.tgz#58141e9471fc96d4f403e50653c312b8e6bafd7a"
+  integrity sha512-EBq4+Xuc9zj9XwlGcUhGjAg8ULo8x2W+ypJ49cdBatM0f5/8/Uu9RkfoJtj8SOv2dsYptJKoMsBBSFhjqR1j7A==
   dependencies:
-    projen "^0.16.12"
+    projen "^0.17"
 
-projen@^0.16.12:
-  version "0.16.42"
-  resolved "https://registry.yarnpkg.com/projen/-/projen-0.16.42.tgz#821f2087f841a5b63aa2e25c724c16b3ae0c6c3a"
-  integrity sha512-mOc4wz8jrmnu3eP7CzCmPO1LU39dec/cCZwDBaif+j72/daKg49uoXtVkMh0wyMMwydSqeYp9om2cnYsbVaJVA==
-  dependencies:
-    "@iarna/toml" "^2.2.5"
-    chalk "^4.1.0"
-    decamelize "^4.0.0"
-    fs-extra "^9.0.1"
-    glob "^7"
-    inquirer "^7.3.3"
-    semver "^7.3.2"
-    xmlbuilder2 "^2.4.0"
-    yaml "^1.10.0"
-    yargs "^16.2.0"
-
-projen@^0.17.20:
+projen@^0.17, projen@^0.17.20:
   version "0.17.20"
   resolved "https://registry.yarnpkg.com/projen/-/projen-0.17.20.tgz#32b1e096c5d9c4a5e848bd04ff305f40ccaf3493"
   integrity sha512-RRtFKcKOedlHSbSjn+SCqXfYnOtJZg2UWk4W/unQwpgAcrKlHwoeK0djr14rStHwLUlji5qtus+X2NIcSTPCYg==

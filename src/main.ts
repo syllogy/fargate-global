@@ -1,3 +1,5 @@
+import * as elbv2 from '@aws-cdk/aws-elasticloadbalancingv2';
+import * as endpoints from '@aws-cdk/aws-globalaccelerator-endpoints';
 import * as cdk from '@aws-cdk/core';
 import * as remoteStack from 'cdk-remote-stack';
 import { FargateAlbService, GlobalAcceleratorProvider, Route53Provider } from './ga-fargate-service-stack';
@@ -38,6 +40,10 @@ export class Main {
     });
     const JPLoadBalancerDnsName = JPOutputs.getAttString('DnsName');
     const JPLoadBalancerArn = JPOutputs.getAttString('LoadBalancerArn');
+    const jpAlb = elbv2.ApplicationLoadBalancer.fromApplicationLoadBalancerAttributes(gaStack, 'JpAlb', {
+      loadBalancerArn: JPLoadBalancerArn,
+      securityGroupId: 'dummy',
+    });
 
     // cross-regional stack outputs from US
     const USOutputs = new remoteStack.StackOutputs(gaStack, 'USOutputs', {
@@ -46,13 +52,21 @@ export class Main {
     });
     const USLoadBalancerDnsName = USOutputs.getAttString('DnsName');
     const USLoadBalancerArn = USOutputs.getAttString('LoadBalancerArn');
+    const usAlb = elbv2.ApplicationLoadBalancer.fromApplicationLoadBalancerAttributes(gaStack, 'UsAlb', {
+      loadBalancerArn: USLoadBalancerArn,
+      securityGroupId: 'dummy',
+    });
 
     // ensure the dependency
     gaStack.addDependency(fargateJP);
     gaStack.addDependency(fargateUS);
 
-    ga.endpointgroups['us-west-2'].addEndpoint('UsEndpoint', USLoadBalancerArn);
-    ga.endpointgroups['ap-northeast-1'].addEndpoint('JpEndpoint', JPLoadBalancerArn);
+    ga.endpointgroups['us-west-2'].addEndpoint(
+      new endpoints.ApplicationLoadBalancerEndpoint(usAlb),
+    );
+    ga.endpointgroups['ap-northeast-1'].addEndpoint(
+      new endpoints.ApplicationLoadBalancerEndpoint(jpAlb),
+    );
 
     new cdk.CfnOutput(gaStack, 'GADnsName', { value: ga.dnsName });
 
