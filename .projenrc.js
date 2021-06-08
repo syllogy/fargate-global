@@ -1,4 +1,6 @@
-const { AwsCdkTypeScriptApp } = require('projen');
+const { AwsCdkTypeScriptApp, DependenciesUpgradeMechanism } = require('projen');
+
+const AUTOMATION_TOKEN = 'PROJEN_GITHUB_TOKEN';
 
 const project = new AwsCdkTypeScriptApp({
   cdkVersion: '1.77.0',
@@ -6,7 +8,16 @@ const project = new AwsCdkTypeScriptApp({
   authorName: 'Pahud Hsieh',
   authorEmail: 'pahudnet@gmail.com',
   repository: 'https://github.com/pahud/fargate-global.git',
-  dependabot: false,
+  depsUpgrade: DependenciesUpgradeMechanism.githubWorkflow({
+    workflowOptions: {
+      labels: ['auto-approve', 'auto-merge'],
+      secret: AUTOMATION_TOKEN,
+    },
+  }),
+  autoApproveOptions: {
+    secret: 'GITHUB_TOKEN',
+    allowedUsernames: ['pahud'],
+  },
   cdkDependencies: [
     '@aws-cdk/aws-certificatemanager',
     '@aws-cdk/aws-ec2',
@@ -21,7 +32,7 @@ const project = new AwsCdkTypeScriptApp({
     '@aws-cdk/core',
   ],
   deps: ['cdk-remote-stack'],
-  defaultReleaseBranch: ['main'],
+  defaultReleaseBranch: 'main',
 });
 
 const common_exclude = ['cdk.context.json', 'docker-compose.yml', 'yarn-error.log'];
